@@ -13,29 +13,31 @@ from sklearn.metrics import mean_squared_error    # function to calculate mean s
 
 
 playerData = pd.read_csv('MLplayerdata2.csv')   #read data fetched from eliteprospects ADD DATAFILE
+U16sm_standings = pd.read_csv('U16sm_standings.csv')
 
-data = playerData.drop([' GP',' G',' A',' P',' PIM', ' +/-'], inplace = False, axis = 1) #drop unnecessary columns 
+Combined = pd.merge(playerData, U16sm_standings, how='left', left_on=[' team', ' season'], right_on=[' team', ' season']).dropna()
 
-
-data.head(5)        
-
-#edit data so that position is either 1 - forward(fwd,c,lw,rw) or 0 - defender(d,rd,ld)
-#use PolynomialFeatures to predic
-
-#x_values = playerData[['pos','PPG','placement']] 
-#y_values = playerData[['success']]
+data = Combined.drop([' GP',' G',' A',' P',' PIM', ' +/-'], inplace = False, axis = 1) #drop unnecessary columns 
 
 
+data.head(10) 
 
-rivi = 0
 
-for player in data:
-    position = data.iloc[rivi, 2][1]
-    data.iloc[rivi, 2] = position
-    rivi = rivi + 1
+x = 0
+
+while x > data.size:
+    position = data.iloc[x, 2][1]
+    data.iloc[x, 2] = position
+    x = x + 1
     
+data.head(30)
+ 
+ 
 data.loc[data[' pos'] == 'L', ' pos'] = 2
 data.loc[data[' pos'] == 'F', ' pos'] = 2
 data.loc[data[' pos'] == 'R', ' pos'] = 2
 data.loc[data[' pos'] == 'C', ' pos'] = 2
 data.loc[data[' pos'] == 'D', ' pos'] = 1
+
+data.head(20)
+data.tail(5)

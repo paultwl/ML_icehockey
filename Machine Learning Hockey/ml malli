@@ -24,3 +24,18 @@ data.head(5)
 
 #x_values = playerData[['pos','PPG','placement']] 
 #y_values = playerData[['success']]
+
+
+
+rivi = 0
+
+for player in data:
+    position = data.iloc[rivi, 2][1]
+    data.iloc[rivi, 2] = position
+    rivi = rivi + 1
+    
+data.loc[data[' pos'] == 'L', ' pos'] = 2
+data.loc[data[' pos'] == 'F', ' pos'] = 2
+data.loc[data[' pos'] == 'R', ' pos'] = 2
+data.loc[data[' pos'] == 'C', ' pos'] = 2
+data.loc[data[' pos'] == 'D', ' pos'] = 1

@@ -6,7 +6,7 @@ from numpy.testing import assert_array_equal
 
 # Regression import 
 
-%config Completer.use_jedi = False  # enable code auto-completion
+
 from sklearn.preprocessing import PolynomialFeatures    # function to generate polynomial and interaction features
 from sklearn.linear_model import LinearRegression    # classes providing Linear Regression with ordinary squared error loss and Huber loss, respectively
 from sklearn.metrics import mean_squared_error    # function to calculate mean squared error

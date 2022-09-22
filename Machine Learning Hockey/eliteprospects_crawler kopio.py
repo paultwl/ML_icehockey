@@ -85,49 +85,7 @@ def datacleaner(dataset):
 
 
 playerdata = driver.find_elements(by=By.XPATH, value="/html/body/section/div/div/div[2]/div[4]/div[1]/div/div[4]/table/tbody/tr")
-#"/html/body/section/div/div[1]/div[4]/div[4]/div[1]/div/div[4]/table/tbody/tr"
-                                                    #/html/body/section/div/div/div[2]/div[4]/div[1]/div/div[4]/table/tbody[1]/tr[1]
-print("\n\nPlayer Data fetched and driver closed. Players found:\n",len(playerdata),"\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\n")
-
-#soup = BeautifulSoup(html, "html.parser")
-'''
-sorteddata = []
-print("pillu!!!\n\n\n")
-for dp in playerdata:
-    dp = dp.text[dp.text.index(' '):] #remove the number before the name, since it's irrelevant
-    dp = dp.split(maxsplit=13) #turn the string into a list of data
-#the data is as follows [index, firstname, lastname, position, team, league,(possibly academy), GP, G, A, T, PPG, PIM, +/-]
-    if len(dp) == 13:  #these if elses combine the texts signifying teams
-        team = dp[3]+dp[4]+dp[5]
-        del dp[4]
-        del dp[5]
-        dp[3] = team
-    elif len(dp) == 12:
-        team = dp[3]+dp[4]
-        del dp[4]
-        dp[3] = team
-    sorteddata.append(dp)
-print("\n\n\npillu!!!\n\n\n")
-'''
-
-
-#datacleaner(playerdata)   
+   
 seasonIterator()
 
 driver.quit()
-
-
-
-
-
-'''
-page = soup.contents[0]
-#body = page.find_all('table', class_ = "league-stats desktop country-fi")
-
-body = page.find
-print(body.contents[1])
-
-print("program finished")
-
-xpath = "/html/body/section/div/div[1]/div[4]/div[4]/div[1]/div/div[4]/table/tbody[1]"
-'''

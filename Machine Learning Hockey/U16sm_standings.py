@@ -6,7 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import csv
 
-seasons = ["2011-2012","2012-2013","2013-2014","2014-2015","2015-2016"]
+seasons = ["2006-2007","2007-2008","2008-2009","2009-2010","2010-2011","2011-2012","2012-2013","2013-2014","2014-2015","2015-2016"]
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 for season in seasons:

@@ -13,7 +13,7 @@ import pandas as pd
 sarja = "u16-sm-sarja"
 kausi = "2014-2015"
 measures = ["?never-played-in-league","?has-played-in-league"]
-seasons = ["2011-2012","2012-2013","2013-2014","2014-2015","2015-2016"] #we want to fetch data from 5 seasons
+seasons = ["2006-2007","2007-2008","2008-2009","2009-2010","2010-2011","2011-2012","2012-2013","2013-2014","2014-2015","2015-2016"] #we want to fetch data from 10 seasons
 page = 1
 MadeItURL = f"https://www.eliteprospects.com/league/{sarja}/stats/{kausi}?has-played-in-league=Liiga&page={page}"
 NotItURL = f"https://www.eliteprospects.com/league/{sarja}/stats/{kausi}?never-played-in-league=Liiga&page={page}"

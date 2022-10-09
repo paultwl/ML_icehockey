@@ -6,6 +6,7 @@ import seaborn as sns
 from sklearn.tree import export_text, plot_tree, DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, fbeta_score
+
 from sklearn.preprocessing import PolynomialFeatures 
 
 playerData = pd.read_csv('U1610yPos_GP_PPG_PIM_GAP.csv')   #read data fetched from eliteprospects ADD DATAFILE
@@ -37,17 +38,23 @@ def splitbalancer(dataframe: pd.DataFrame, features: list, random: int=0, test =
     y_test = pd.concat([y_test_neg, y_test_pos])
     return [X_train, y_train, X_val, y_val, X_test, y_test]
 
+
+
+
 #We want to create a program to test for best minimum leaf size, 
 #polynomial degree and features as well as test/train split
 #Then we will rank these model by f1 score for positive values and save the best model. 
 
+
 def ClfOptimizer(max_degree: int = 5, max_min_leaf: int = 6, ):
+
     best_classifier = { 'f1': 0,
       'features': [],
       'test': 0,
       'degree': 0,
       'min_leaf': 0 } #Initialize a dict for the best classifier
     feature_lists = [['Position','GP','PPG','Standing'],['Position','GP','Standing','G','A']] #pure vs processed features
+
     
     for l in range(len(feature_lists)):
         
@@ -60,12 +67,14 @@ def ClfOptimizer(max_degree: int = 5, max_min_leaf: int = 6, ):
                     for n in range(3): #Lets run the same model three times with random splits and take the average f1 score
                         X_train, y_train, X_val, y_val, X_test, y_test = splitbalancer(data, training_features, random=n, test = split*0.1)
                     
+
                         transform = PolynomialFeatures(degree=i, interaction_only=True)
                         X_poly = transform.fit_transform(X_train) #transform the training data
                         model = DecisionTreeClassifier(random_state = 0, min_samples_leaf = j)
                         model.fit(X_poly, y_train)
                         y_pred = model.predict(transform.fit_transform(X_val))
                         score = fbeta_score(y_val, y_pred, beta = 0.3,)
+
                         scores.append(score)
                         print(score)
                     avg_score = sum(scores)/len(scores)
@@ -75,11 +84,12 @@ def ClfOptimizer(max_degree: int = 5, max_min_leaf: int = 6, ):
                         best_classifier['test'] = split * 0.1
                         best_classifier['degree'] = i
                         best_classifier['min_leaf'] = j
-
+                        
     print("Best classifier has an f-beta(0.3 recall) score of about ", best_classifier['f1'],
     "\nClassifier attributes: ",
     '\nfeatures: ', best_classifier['features'],
     "\nvalidation set size: ", best_classifier['test'],
+
     "\npolynomial degree: ", best_classifier['degree'],
     "\nmin leaf size: ", best_classifier['min_leaf'])
 
@@ -112,5 +122,5 @@ ax = plt.subplot()
 sns.heatmap(confmat,annot=True, fmt='g', ax=ax)
 ax.set_xlabel('Predicted labels',fontsize=10)
 ax.set_ylabel('True labels',fontsize=10)
-plt.title("Logistic Regression: prediction results", fontsize=10)
+plt.title("Decision tree: prediction results", fontsize=10)
 plt.show()
